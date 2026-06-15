@@ -5,11 +5,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Alemanha</title>
+    <link rel="icon" href="imagens/bandeira_da_Alemanha_.jpg" />
     <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
     <header>
+        <input type="checkbox" id="menu-toggle" />
+        <label for="menu-toggle" class="menu-toggle">
+            Menu
+            <span class="menu-icon"></span>
+        </label>
         <h1>Conhecendo a Alemanha</h1>
         <nav>
             <ul>
@@ -17,13 +23,14 @@
                 <li><a href="#geografia">Geografia</a></li>
                 <li><a href="#cultura">Cultura</a></li>
                 <li><a href="#economia">Economia</a></li>
+                <li><a href="historia.html">História</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section>
-            <h2 id="Alemanha">Informações Gerais</h2>
+        <section id="informacoes-gerais">
+            <h2>Informações Gerais</h2>
             <p>
                 Alemanha é um país europeu conhecido por sua grande força econômica,
                 sendo o país mais rico do continente e com grande protagonismo
@@ -42,32 +49,32 @@
             </p>
         </section>
 
-        <section>
-            <h2 id="história">Breve história da Alemanha</h2>
+        <section id="história">
+            <h2>Breve história da Alemanha</h2>
             <p>
-                <a href="historia.html">Clique aqui para ler a história da Alemanha</a>
+                Clique aqui para ler a
+                <a href="historia.html" style="text-decoration: none;">história da Alemanha</a>
             </p>
         </section>
 
-        <section>
-            <h2 id="informacoes-gerais">Dados gerais sobre a Alemanha</h2>
+        <section id="dados-gerais">
+            <h2>Dados gerais sobre a Alemanha</h2>
             <ul>
                 <li>Nome oficial: República Federal da Alemanha</li>
                 <li>Capital: Berlim</li>
-                <li>População: aproximadamente 83 milhões (2021)</li>
-                <li>Área: 357.000 km²</li>
+                <li>População: aproximadamente 84 milhões de habitantes (2021)</li>
+                <li>Área: 357.386 km²</li>
                 <li>Moeda: Euro</li>
                 <li>
-                    Clima: grande parte do território apresenta clima temperado
-                    oceânico, com chuvas abundantes e frequentes, além de verões não
-                    muito quentes e invernos não muito rigorosos.
+                    Clima: Temperado sazonal, com invernos moderados e verões que costumam superar os 30°C.
                 </li>
-                <li></li>
+                <li>Localização: Faz fronteira com 9 países (França, Suíça, Áustria, República Tcheca, Polônia,
+                    Dinamarca, Países Baixos, Bélgica e Luxemburgo).</li>
             </ul>
         </section>
 
-        <section>
-            <h2 id="governo">Governo</h2>
+        <section id="governo">
+            <h2>Governo</h2>
             <p>
                 Governo: possui um sistema parlamentarista desenvolvido pela
                 Constituição de 1949. Esse sistema possui duas lideranças políticas: o
@@ -81,8 +88,8 @@
             </p>
         </section>
 
-        <section>
-            <h2 id="geografia">Geografia da Alemanha</h2>
+        <section id="geografia">
+            <h2>Geografia da Alemanha</h2>
             <p>
                 Localizada na parte oeste da Europa, a Alemanha possui clima temperado
                 oceânico, com influência direta do Mar do Norte e do mar Báltico. Essa
@@ -111,20 +118,21 @@
 
             <h3>Mapa da Alemanha</h3>
             <p>
-                Mapa da Alemanha A Alemanha está localizada na parte oeste da Europa e
-                faz fronteira com os seguintes países:
+                A Alemanha está localizada na parte oeste da Europa e faz fronteira com os seguintes países:
+            </p>
             <ul>
-                <li>Dinamarca, ao norte, além do Mar do Norte e mar Báltico;</li>
+                <li>Dinamarca, ao norte, além do Mar do Norte e do mar Báltico;</li>
                 <li>Bélgica, França, Holanda e Luxemburgo, a oeste;</li>
                 <li>Áustria e Suíça, ao sul;</li>
-                <li>Polônia e República Tcheca, a leste. </li>
+                <li>Polônia e República Tcheca, a leste.</li>
             </ul>
-            </p>
-            <img src="mapa-alemanha.png" alt="Mapa da Alemanha" />
+            <figure>
+                <img src="imagens/mapa_alemanha.jpg" alt="Mapa da Alemanha" />
+            </figure>
         </section>
 
-        <section>
-            <h2 id="cultura">Cultura</h2>
+        <section id="cultura">
+            <h2>Cultura</h2>
             <p>
                 A cultura alemã é apreciada em grande parte do mundo. Vários hábitos alemães foram incorporados por
                 outras localidades do globo, principalmente os gastronômicos, como a cerveja e o bolo floresta negra, um
@@ -149,8 +157,8 @@
             </p>
         </section>
 
-        <section>
-            <h2 id="economia">Economia</h2>
+        <section id="economia">
+            <h2>Economia</h2>
             <p>
                 Apesar de possuir a maior economia da Europa em valores absolutos, a Alemanha ocupa atualmente o posto
                 de terceira maior economia do mundo — tendo ultrapassado o Japão —, ficando atrás apenas dos Estados
@@ -190,7 +198,7 @@
             </p>
         </section>
 
-        <section>
+        <section id="turismo">
             <h2>Turismo na Alemanha</h2>
             <p>
                 Viajar pela Alemanha é sempre um prato cheio em vários quesitos, principalmente na gastronomia (com
@@ -219,7 +227,7 @@
             <img src="imagens/berlim.webp" alt="Vista aérea de Berlim, capital da Alemanha." />
         </section>
 
-        <section>
+        <section id="curiosidades">
             <h2>Curiosidades</h2>
             <ul>
                 <li>
@@ -254,7 +262,8 @@
                 </li>
 
                 <li>
-                    A Alemanha é o terceiro maior consumidor de cerveja do planeta. A República Tcheca ocupa a primeira posição e a Áustria a segunda.
+                    A Alemanha é o terceiro maior consumidor de cerveja do planeta. A República Tcheca ocupa a primeira
+                    posição e a Áustria a segunda.
                 </li>
             </ul>
         </section>
@@ -265,4 +274,5 @@
         </a>
     </footer>
 </body>
+
 </html>

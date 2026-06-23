@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Alemanha</title>
+    <title>Alemanha • Conhecendo a Alemanha</title>
     <link rel="icon" href="imagens/bandeira_da_Alemanha_.jpg" />
     <link rel="stylesheet" href="styles.css" />
 </head>
@@ -23,6 +23,7 @@
                 <li><a href="#geografia">Geografia</a></li>
                 <li><a href="#cultura">Cultura</a></li>
                 <li><a href="#economia">Economia</a></li>
+                <li><a href="#quiz">Quiz</a></li>
                 <li><a href="historia.html">História</a></li>
             </ul>
         </nav>
@@ -49,11 +50,11 @@
             </p>
         </section>
 
-        <section id="história">
+        <section id="historia">
             <h2>Breve história da Alemanha</h2>
             <p>
                 Clique aqui para ler a
-                <a href="historia.html" style="text-decoration: none;">história da Alemanha</a>
+                <a href="historia.html" style="text-decoration: none; color: #ffcc00; font-weight: 600;">história completa da Alemanha</a>
             </p>
         </section>
 
@@ -143,7 +144,7 @@
             <br />
             <p>
                 Nessa festa, os trajes típicos alemães são itens essenciais, como vestidos com grande volume, chapéus,
-                bermudas com suspensórios e o amor pela cerveja, é claro. Esse amor é hereditário, sendo passado de
+                bermudas com suspensores e o amor pela cerveja, é claro. Esse amor é hereditário, sendo passado de
                 geração em geração, algo admirável da cultura alemã.
             </p>
             <br />
@@ -267,12 +268,309 @@
                 </li>
             </ul>
         </section>
+
+        <!-- ============================================
+             SEÇÃO DO QUIZ INTERATIVO
+             ============================================ -->
+        <section id="quiz">
+            <h2>Quiz Interativo • Teste seus conhecimentos!</h2>
+            <p style="max-width: 620px; margin-bottom: 0.5rem;">
+                Responda às 5 perguntas sobre a Alemanha. Acompanhe seu progresso na barra 
+                colorida com as cores da bandeira alemã (preto, vermelho e amarelo/ouro).
+            </p>
+
+            <!-- Barra de Progresso -->
+            <div class="quiz-progress">
+                <div class="progress-bar-container">
+                    <div id="progress-bar" class="progress-bar"></div>
+                </div>
+                <div class="progress-text">
+                    <span id="answered-count">0</span> de 5 perguntas respondidas
+                </div>
+            </div>
+
+            <!-- Container das perguntas (preenchido via JavaScript) -->
+            <div id="quiz-container"></div>
+
+            <!-- Resultados (mostrado ao final) -->
+            <div id="quiz-results" style="display: none;">
+                <h3>🎉 Resultado do Quiz</h3>
+                <p id="score-text"></p>
+                <button id="restart-btn" class="quiz-btn">Reiniciar Quiz</button>
+            </div>
+        </section>
     </main>
+
     <footer>
         <a href="finalizacao.html">
             <p>© 2026 3º ano Informática. Todos os direitos reservados.</p>
         </a>
     </footer>
+
+    <!-- JavaScript do Quiz -->
+    <script>
+        // Dados das 5 perguntas do quiz
+        const questionsData = [
+            {
+                q: "Qual é a capital da Alemanha?",
+                options: ["Munique", "Berlim", "Frankfurt", "Hamburgo"],
+                correct: 1
+            },
+            {
+                q: "Em que ano a Alemanha foi reunificada após a queda do Muro de Berlim?",
+                options: ["1989", "1990", "1991", "1992"],
+                correct: 1
+            },
+            {
+                q: "Qual famoso castelo inspirou o castelo da Disney e fica na Baviera?",
+                options: ["Castelo de Neuschwanstein", "Castelo de Hohenzollern", "Castelo de Heidelberg", "Castelo de Wartburg"],
+                correct: 0
+            },
+            {
+                q: "Quem é conhecido como o 'Chanceler de Ferro' e unificou a Alemanha em 1871?",
+                options: ["Adolf Hitler", "Otto von Bismarck", "Kaiser Wilhelm II", "Helmut Kohl"],
+                correct: 1
+            },
+            {
+                q: "Qual é a tradicional festa de cerveja que acontece anualmente em Munique?",
+                options: ["Carnaval de Colônia", "Oktoberfest", "Festival de Berlim", "Natal Alemão"],
+                correct: 1
+            }
+        ];
+
+        // Variáveis de estado do quiz
+        let answeredCount = 0;
+        let score = 0;
+        const answeredIndices = new Set();
+
+        // Elementos do DOM
+        let progressBar;
+        let answeredCountEl;
+        let quizContainer;
+        let resultsDiv;
+        let scoreText;
+        let restartBtn;
+
+        // Função para atualizar a barra de progresso
+        function updateProgress() {
+            const percent = (answeredCount / 5) * 100;
+            progressBar.style.width = `${percent}%`;
+            answeredCountEl.textContent = answeredCount;
+
+            // Quando todas as perguntas forem respondidas
+            if (answeredCount === 5) {
+                setTimeout(showResults, 650);
+            }
+        }
+
+        // Função para lidar com a resposta do usuário
+        function handleAnswer(card, qIndex, optIndex, clickedBtn) {
+            // Impede responder novamente
+            if (card.classList.contains('answered') || answeredIndices.has(qIndex)) {
+                return;
+            }
+
+            card.classList.add('answered');
+            answeredIndices.add(qIndex);
+            answeredCount++;
+            updateProgress();
+
+            const correctIndex = questionsData[qIndex].correct;
+            const isCorrect = optIndex === correctIndex;
+
+            if (isCorrect) {
+                score++;
+            }
+
+            // Destaca todas as opções
+            const allBtns = card.querySelectorAll('.option-btn');
+            allBtns.forEach((btn, i) => {
+                btn.disabled = true;
+
+                if (i === correctIndex) {
+                    btn.classList.add('correct');
+                } else if (btn === clickedBtn && !isCorrect) {
+                    btn.classList.add('incorrect');
+                }
+            });
+
+            // Mostra feedback
+            const feedback = card.querySelector('.feedback');
+            if (isCorrect) {
+                feedback.innerHTML = `
+                    <span class="correct-feedback">
+                        ✅ Resposta correta! Excelente!
+                    </span>
+                `;
+            } else {
+                const correctAnswer = questionsData[qIndex].options[correctIndex];
+                feedback.innerHTML = `
+                    <span class="incorrect-feedback">
+                        ❌ Resposta incorreta. A resposta correta era: <strong>${correctAnswer}</strong>
+                    </span>
+                `;
+            }
+            feedback.style.display = 'block';
+        }
+
+        // Renderiza todas as perguntas dinamicamente
+        function renderQuestions() {
+            quizContainer.innerHTML = '';
+
+            questionsData.forEach((question, index) => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.dataset.index = index;
+
+                card.innerHTML = `
+                    <h3>Pergunta ${index + 1}</h3>
+                    <p class="question-text">${question.q}</p>
+                    <div class="options"></div>
+                    <div class="feedback"></div>
+                `;
+
+                const optionsDiv = card.querySelector('.options');
+
+                question.options.forEach((optionText, optIndex) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-btn';
+                    btn.textContent = optionText;
+                    btn.dataset.optionIndex = optIndex;
+
+                    // Evento de clique
+                    btn.addEventListener('click', () => {
+                        handleAnswer(card, index, optIndex, btn);
+                    });
+
+                    optionsDiv.appendChild(btn);
+                });
+
+                quizContainer.appendChild(card);
+            });
+        }
+
+        // Mostra a tela de resultados
+        function showResults() {
+            resultsDiv.style.display = 'block';
+            resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            const percent = Math.round((score / 5) * 100);
+
+            let message = '';
+            if (percent === 100) {
+                message = '🇩🇪 <strong>Perfeito!</strong> Você é um verdadeiro especialista na Alemanha!';
+            } else if (percent >= 80) {
+                message = '👏 <strong>Muito bom!</strong> Você conhece bastante sobre a Alemanha!';
+            } else if (percent >= 60) {
+                message = '👍 <strong>Bom trabalho!</strong> Continue explorando o site para aprender mais.';
+            } else if (percent >= 40) {
+                message = '📚 <strong>Quase lá!</strong> Revise as seções do site e tente novamente.';
+            } else {
+                message = '🌍 <strong>Ótima tentativa!</strong> A história e cultura da Alemanha são fascinantes. Explore mais!';
+            }
+
+            scoreText.innerHTML = `
+                Você acertou <strong>${score} de 5</strong> perguntas!<br>
+                <strong style="font-size:1.35rem; color:#ffcc00;">${percent}% de acerto</strong><br><br>
+                ${message}
+            `;
+        }
+
+        // Reinicia completamente o quiz
+        function resetQuiz() {
+            // Reseta estado
+            answeredCount = 0;
+            score = 0;
+            answeredIndices.clear();
+
+            // Reseta barra de progresso
+            progressBar.style.width = '0%';
+            answeredCountEl.textContent = '0';
+
+            // Esconde resultados
+            resultsDiv.style.display = 'none';
+
+            // Remove classes e re-renderiza as perguntas
+            quizContainer.innerHTML = '';
+            renderQuestions();
+
+            // Scroll suave de volta para o topo do quiz
+            document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Inicialização do quiz
+        function initQuiz() {
+            progressBar = document.getElementById('progress-bar');
+            answeredCountEl = document.getElementById('answered-count');
+            quizContainer = document.getElementById('quiz-container');
+            resultsDiv = document.getElementById('quiz-results');
+            scoreText = document.getElementById('score-text');
+            restartBtn = document.getElementById('restart-btn');
+
+            // Renderiza as perguntas
+            renderQuestions();
+
+            // Botão de reiniciar
+            restartBtn.addEventListener('click', resetQuiz);
+
+            // Permite reiniciar com tecla "R" quando resultados visíveis (bônus)
+            document.addEventListener('keydown', (e) => {
+                if (e.key.toLowerCase() === 'r' && resultsDiv.style.display === 'block') {
+                    resetQuiz();
+                }
+            });
+
+            // Mensagem inicial no console (para devs)
+            console.log('%c[Quiz] Quiz da Alemanha inicializado com sucesso! Cores da bandeira aplicadas.', 'color:#ffcc00');
+        }
+
+        // Inicia tudo quando o DOM estiver pronto
+        document.addEventListener('DOMContentLoaded', () => {
+            initQuiz();
+
+            // ============================================
+            // FECHAR MENU HAMBÚRGUER AO CLICAR EM UM LINK (mobile)
+            // ============================================
+            const menuToggle = document.getElementById('menu-toggle');
+            const navLinks = document.querySelectorAll('nav ul li a');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    // Só fecha se o menu hamburguer estiver visível (mobile)
+                    if (menuToggle && menuToggle.checked) {
+                        menuToggle.checked = false;
+                    }
+                });
+            });
+
+            // ============================================
+            // SCROLL REVEAL AVANÇADO (Intersection Observer)
+            // ============================================
+            const revealElements = document.querySelectorAll('section');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        // Adiciona delay escalonado para efeito bonito
+                        setTimeout(() => {
+                            entry.target.classList.add('active');
+                        }, index * 80);
+                        
+                        // Para de observar depois que já apareceu
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.15,
+                rootMargin: "0px 0px -80px 0px"
+            });
+
+            revealElements.forEach(section => {
+                section.classList.add('reveal');
+                observer.observe(section);
+            });
+        });
+    </script>
 </body>
 
 </html>

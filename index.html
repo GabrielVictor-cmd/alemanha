@@ -16,6 +16,17 @@
             Menu
             <span class="menu-icon"></span>
         </label>
+        <!-- Menu Hambúrguer Mobile -->
+        <nav class="mobile-menu">
+            <ul>
+                <li><a href="#informacoes-gerais">Informações Gerais</a></li>
+                <li><a href="#geografia">Geografia</a></li>
+                <li><a href="#cultura">Cultura</a></li>
+                <li><a href="#economia">Economia</a></li>
+                <li><a href="#quiz">Quiz</a></li>
+                <li><a href="historia.html">História</a></li>
+            </ul>
+        </nav>
         <h1>Conhecendo a Alemanha</h1>
         <nav>
             <ul>
@@ -568,6 +579,17 @@
             revealElements.forEach(section => {
                 section.classList.add('reveal');
                 observer.observe(section);
+            });
+        });
+
+        const menuToggle = document.getElementById('menu-toggle');
+        const navLinks = document.querySelectorAll('nav ul li a');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (menuToggle && menuToggle.checked) {
+                    menuToggle.checked = false;
+                }
             });
         });
     </script>

@@ -613,7 +613,7 @@ header h1 {
 }
 
 .question-card h3::before {
-    content: "🇩🇪";
+    content: "";
     font-size: 1.35rem;
     line-height: 1;
 }
